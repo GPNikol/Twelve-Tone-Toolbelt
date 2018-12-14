@@ -1,0 +1,5 @@
+This is a multiline test document.
+Hopefully this will print as it looks in the editor.
+---------------------------------------------------
+|                                                 |
+---------------------------------------------------
