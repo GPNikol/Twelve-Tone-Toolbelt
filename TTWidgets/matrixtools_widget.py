@@ -1,7 +1,13 @@
+'''
+CREATED BY: Gregory P. Nikol
+MOST RECENT UPDATE: December 14, 2018
+
+Class for building, clearing, and modifying the appearence of the matrix widget
+'''
 import kivy
 kivy.require('1.10.1')
 
-from toolbar_widget import ToolBarWidget
+from .toolbar_widget import ToolBarWidget
 from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.button import Button
 

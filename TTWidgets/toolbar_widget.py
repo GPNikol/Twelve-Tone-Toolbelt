@@ -1,3 +1,9 @@
+'''
+CREATED BY: Gregory P. Nikol
+MOST RECENT UPDATE: December 14, 2018
+
+Class for altering the function  or appearence of the twelve tone app
+'''
 import kivy
 kivy.require('1.10.1')
 

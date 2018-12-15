@@ -1,4 +1,7 @@
 '''
+CREATED BY: Gregory P. Nikol
+MOST RECENT UPDATE: December 14, 2018
+
 This script provides a GUI interface for a Twelve Tone Matrix.
 
 It has been adapted from a previous - terminal based application
@@ -8,9 +11,9 @@ import kivy
 import kivy.uix.settings
 kivy.require('1.10.1')
 
-from toolbar_widget import ToolBarWidget
-from matrixtools_widget import MatrixTools
-from matrix_widget import MatrixWidget
+from TTWidgets.toolbar_widget import ToolBarWidget
+from TTWidgets.matrixtools_widget import MatrixTools
+from TTWidgets.matrix_widget import MatrixWidget
 
 from kivy.app import App
 from kivy.logger import Logger

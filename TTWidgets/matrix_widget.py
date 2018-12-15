@@ -1,3 +1,9 @@
+'''
+CREATED BY: Gregory P. Nikol
+MOST RECENT UPDATE: December 14, 2018
+
+Class for creating and acting on a 12x12 matrix in kivy. 
+'''
 import kivy
 kivy.require('1.10.1')
 
