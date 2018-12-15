@@ -1,0 +1,149 @@
+#:kivy 1.10.1
+
+<TextInput>:
+    font_name: 'DejaVuSans'
+
+<Label>:
+    font_name: 'DejaVuSans'
+
+<MatrixCell>
+    font_size: self.height * .5
+    canvas.before:
+        Color:
+            rgba: 0, 0, 0, 1
+        Rectangle:
+            pos: self.pos
+            size: self.width * 1.05, self.height * 1.05
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.width, self.height
+
+<ToolBarWidget>
+    anchor_x: 'center'
+    anchor_y: 'center'
+
+<MatrixTools>
+    anchor_x: 'right'
+    anchor_y: 'center'
+
+<MatrixWidget>
+    cols: 12
+    rows: 12
+    size_hint: .55, .7
+
+<RootWidget>
+    canvas.before:
+        Color:
+            rgba: .25, .25, .25, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    MatrixWidget:
+        id:matrix
+        spacing: 7
+        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+    MatrixTools:
+        id:matrix_tools
+        height: self.parent.height / 2
+        size: 400, 400
+        size_hint_x: .175
+        size_hint_y: 0.375
+        pos_hint: {'right': .975, 'center_y': .5}
+
+    FloatLayout:
+        id:prime_row
+        TextInput:
+            id:0
+            size_hint: 0.038, 0.05
+            pos_hint: {'center_x': 0.28, 'top': .93}
+            font_size: self.height - 15
+            multiline: False
+            write_tab: False
+        TextInput:
+            id:1
+            size_hint: 0.038, 0.05
+            pos_hint: {'center_x': 0.32, 'top': .93}
+            font_size: self.height - 15
+            multiline: False
+            write_tab: False
+        TextInput:
+            id:2
+            size_hint: 0.038, 0.05
+            pos_hint: {'center_x': 0.36, 'top': .93}
+            font_size: self.height - 15
+            multiline: False
+            write_tab: False
+        TextInput:
+            id:3
+            size_hint: 0.038, 0.05
+            pos_hint: {'center_x': 0.4, 'top': .93}
+            font_size: self.height - 15
+            multiline: False
+            write_tab: False
+        TextInput:
+            id:4
+            size_hint: 0.038, 0.05
+            pos_hint: {'center_x': 0.44, 'top': .93}
+            font_size: self.height - 15
+            multiline: False
+            write_tab: False
+        TextInput:
+            id:5
+            size_hint: 0.038, 0.05
+            pos_hint: {'center_x': 0.48, 'top': .93}
+            font_size: self.height - 15
+            multiline: False
+            write_tab: False
+        TextInput:
+            id:6
+            size_hint: 0.038, 0.05
+            pos_hint: {'center_x': 0.52, 'top': .93}
+            font_size: self.height - 15
+            multiline: False
+            write_tab: False
+        TextInput:
+            id:7
+            size_hint: 0.038, 0.05
+            pos_hint: {'center_x': 0.56, 'top': .93}
+            font_size: self.height - 15
+            multiline: False
+            write_tab: False
+        TextInput:
+            id:8
+            size_hint: 0.038, 0.05
+            pos_hint: {'center_x': 0.6, 'top': .93}
+            font_size: self.height - 15
+            multiline: False
+            write_tab: False
+        TextInput:
+            id:9
+            size_hint: 0.038, 0.05
+            pos_hint: {'center_x': 0.64, 'top': .93}
+            font_size: self.height - 15
+            multiline: False
+            write_tab: False
+        TextInput:
+            id:10
+            size_hint: 0.038, 0.05
+            pos_hint: {'center_x': 0.68, 'top': .93}
+            font_size: self.height - 15
+            multiline: False
+            write_tab: False
+        TextInput:
+            id:11
+            size_hint: 0.038, 0.05
+            pos_hint: {'center_x': 0.72, 'top': .93}
+            font_size: self.height - 15
+            multiline: False
+            write_tab: False
+
+    ToolBarWidget:
+        id: tools
+        width: self.parent.width
+        size_hint_y: 0.05
+        pos_hint: {'center_x': 0.5, 'top': 1}

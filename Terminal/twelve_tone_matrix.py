@@ -5,7 +5,6 @@ imports from copy to create a deepcopy in the _expand method
 '''
 from copy import deepcopy
 from time import sleep
-import pdf_print
 
 class TwelveTone:
     '''
@@ -226,7 +225,7 @@ def _print_menu(is_first_show=False):
         print("5. Convert to sharp alphabetic")
         print("6. Convert to default representation")
         print("7. Clear the matrix")
-        print("8. Save and print the matrix")
+        print("8. Save the matrix")
     print("9. Exit the program\n")
 
 def _get_integer(is_first_show=False):
@@ -297,8 +296,6 @@ def main():
             matrix_file = open(str(file_name)+".txt", 'w', encoding='utf-8')
             matrix_file.write(str(my_matrix))
             matrix_file.close()
-            sleep(.5)
-            pdf_print.convert_to_pdf(str(file_name)+".txt")
         elif status == 9:
             break
         else:
