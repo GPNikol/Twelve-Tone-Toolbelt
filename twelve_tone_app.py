@@ -13,13 +13,13 @@ from matrixtools_widget import MatrixTools
 from matrix_widget import MatrixWidget
 
 from kivy.app import App
+from kivy.logger import Logger
 from kivy.uix.floatlayout import FloatLayout
-from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
+from kivy.uix.dropdown import DropDown
 from kivy.uix.button import Button
 from kivy.uix.popup import Popup
-from kivy.uix.dropdown import DropDown
-from kivy.logger import Logger
+from kivy.uix.label import Label
 
 class RootWidget(FloatLayout):
     '''
