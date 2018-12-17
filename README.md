@@ -19,7 +19,7 @@ To meet the requirements of a tone row the set must meet these preconditions:
 4. The row in any of it's transformations may begin on any degree of the chromatic scale - 
    In other words it may be freely transposed. 
 
-![alt-text](http://musicclasshub.weebly.com/uploads/1/8/5/5/18552840/2896867_orig.png)
+![alt-text](http://1.bp.blogspot.com/_Zhz8NEf3_04/TCd22VxuiOI/AAAAAAAAAHc/Yqo-JiBCCoo/s1600/Matrix.jpeg)
 
 This software was created to assist modern composers with the creation of their twelve-tone matrix.
 All the user needs to do is create their prime row and press the build button to see the full matrix.
