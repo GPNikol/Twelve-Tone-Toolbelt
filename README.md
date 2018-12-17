@@ -35,7 +35,7 @@ The expanded representation shows the musical distance between each note in the 
 
 ~~1. Create and display a twelve tone matrix in five representations.~~
 
-~~2. Create a GUI for the twelve tone matrix. ~~
+~~2. Create a GUI for the twelve tone matrix.~~
 
 3. Enable saving of the currently display twelve-tone matrix.
 
