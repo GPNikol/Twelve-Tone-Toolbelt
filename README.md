@@ -34,9 +34,15 @@ The expanded representation shows the musical distance between each note in the 
 # Project Checklist
 
 ~~1. Create and display a twelve tone matrix in five representations.~~
+
 ~~2. Create a GUI for the twelve tone matrix. ~~
+
 3. Enable saving of the currently display twelve-tone matrix.
+
 4. Enable saving of the state of the workspace.
+
 5. Enable printing of the current state of the twelve-tone matrix.
+
 6. Enable display options to alter the appearence of the workspace.
+
 7. Add audio to play a line the twelve-tone matrix. 
