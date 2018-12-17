@@ -49,4 +49,4 @@ The expanded representation shows the musical distance between each note in the 
 
 6. Enable display options to alter the appearence of the workspace.
 
-7. Add audio to play a line the twelve-tone matrix. 
+7. Add audio to play a line in the twelve-tone matrix. 
