@@ -20,3 +20,23 @@ To meet the requirements of a tone row the set must meet these preconditions:
    In other words it may be freely transposed. 
 
 ![alt-text](http://musicclasshub.weebly.com/uploads/1/8/5/5/18552840/2896867_orig.png)
+
+This software was created to assist modern composers with the creation of their twelve-tone matrix.
+All the user needs to do is create their prime row and press the build button to see the full matrix.
+Once the matrix is built the user can convert the display of the matrix to any of five representations.
+
+The default display is numerical where each number 0 through 11 represents each step of the scale C through B♭
+The alpha-numeric display has each number 0 through 9, ten and eleven are represented by t and e respectively.
+The flat alphabetic display uses the musical note representation with flats rather than sharps.
+The sharp alphabetic display uses the musical note representation with sharps rather than flats. 
+The expanded representation shows the musical distance between each note in the tone row. 
+
+# Project Checklist
+
+~~1. Create and display a twelve tone matrix in five representations.~~
+~~2. Create a GUI for the twelve tone matrix. ~~
+3. Enable saving of the currently display twelve-tone matrix.
+4. Enable saving of the state of the workspace.
+5. Enable printing of the current state of the twelve-tone matrix.
+6. Enable display options to alter the appearence of the workspace.
+7. Add audio to play a line the twelve-tone matrix. 
