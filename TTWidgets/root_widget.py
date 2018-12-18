@@ -33,8 +33,8 @@ class RootWidget(FloatLayout):
         super(RootWidget, self).__init__(**kwargs)
         self.error_pop_set = Popup(title="PRIME ROW ERROR",
                             content=Label(text='''RULES FOR A PRIME ROW:
-                                                \n -Must contain all numbers zero through eleven
-                                                \n -Must contain each only once''',
+                            \n -Must contain all numbers zero through eleven
+                                        \n -Must contain each only once''',
                                         font_size=self.height/6),
                             size_hint=(None,None),
                             size=(600,400))
