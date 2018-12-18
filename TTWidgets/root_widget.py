@@ -38,39 +38,53 @@ class RootWidget(FloatLayout):
                                         font_size=self.height/6),
                             size_hint=(None,None),
                             size=(600,400))
-        self.my_mat = self.ids.matrix
-        self.prime = self.ids.prime_row
-        self.my_tools = self.ids.matrix_tools
-        self.tool_bar = self.ids.tools
+        my_mat = self.ids.matrix
+        prime_row = self.ids.prime_row
+        my_tools = self.ids.matrix_tools.children
+        my_tools_h2 = my_tools[2].children
+        my_tools_h1 = my_tools[1].children
+        tool_bar = self.ids.tools.children
 
         #Binding functions to settings drop down menu
         file_dropdown = DropDown()
         btn_names = ['Save', 'Print', 'Print Options', 'Properties']
         for indx in range(4):
-            btn = Button(text=f'{btn_names[indx]}', size_hint=(None, None), width=self.width, height=40)
+            btn = Button(text=f'{btn_names[indx]}', 
+                        size_hint=(None, None), 
+                        width=self.width, height=40)
             btn.bind(on_press=lambda btn: file_dropdown.select(btn.text))
             file_dropdown.add_widget(btn)
-        self.tool_bar.children[0].bind(on_release=file_dropdown.open)
-        file_dropdown.bind(on_select=lambda instance, x: setattr(self.tool_bar.children[0], 'text', x))
+        tool_bar[0].bind(on_release=file_dropdown.open)
+        file_dropdown.bind(
+            on_select=lambda instance, 
+            x: setattr(tool_bar[0], 'text', x
+            ))
 
         #Binds functions directly effecting the matrix to their buttons
-        self.my_tools.children[4].bind(on_press=lambda *args: self.build_matrix(self.prime, self.my_mat))
-        self.my_tools.children[3].bind(on_press=lambda *args: self.clear_matrix(self.prime, self.my_mat))
-        self.my_tools.children[2].children[1].bind(on_press=lambda *args: self.flip_matrix(self.my_mat, MatrixWidget.FLAT_ALPHA_REP))
-        self.my_tools.children[2].children[0].bind(on_press=lambda *args: self.flip_matrix(self.my_mat, MatrixWidget.SHARP_ALPHA_REP))
-        self.my_tools.children[1].children[1].bind(on_press=lambda *args: self.flip_matrix(self.my_mat, MatrixWidget.EXPAND))
-        self.my_tools.children[1].children[0].bind(on_press=lambda *args: self.flip_matrix(self.my_mat, MatrixWidget.ALPHANUM_REP))
-        self.my_tools.children[0].bind(on_press=lambda *args: self.flip_matrix(self.my_mat, MatrixWidget.DEFAULT))
+        my_tools[4].bind(on_press=lambda *args: self.build_matrix(prime_row,
+        my_mat))
+        my_tools[3].bind(on_press=lambda *args: self.clear_matrix(prime_row,
+        my_mat))
+        my_tools_h2[1].bind(on_press=lambda *args: self.flip_matrix(my_mat,
+        MatrixWidget.FLAT_ALPHA_REP))
+        my_tools_h2[0].bind(on_press=lambda *args: self.flip_matrix(my_mat,
+        MatrixWidget.SHARP_ALPHA_REP))
+        my_tools_h1[1].bind(on_press=lambda *args: self.flip_matrix(my_mat,
+        MatrixWidget.EXPAND))
+        my_tools_h1[0].bind(on_press=lambda *args: self.flip_matrix(my_mat,
+        MatrixWidget.ALPHANUM_REP))
+        my_tools[0].bind(on_press=lambda *args: self.flip_matrix(my_mat,
+        MatrixWidget.DEFAULT))
 
         #Binds text inputs to labels
         for col in range(12):
-            txt_in = self.prime.children[11 - col]
-            lbl = self.my_mat.children[self.my_mat.translate_coords(0,col)]
+            txt_in = prime_row.children[11 - col]
+            lbl = my_mat.children[my_mat.translate_coords(0,col)]
             txt_in.bind(text=lbl.setter('text'))
 
     def _convert_prime_row(self, row):
         '''
-        Converts a string list to a numerical list, reverses it, and returns it.
+        Converts a string list to a numerical list, reverses it, and returns it
         '''
         tmp = [] #temporary list to operate on the prime row
 
@@ -79,7 +93,7 @@ class RootWidget(FloatLayout):
             if child.text != '': 
                 tmp.append(int(child.text))
 
-        tmp.reverse() #Compensates for the FIFO method kivy uses to load widgets. 
+        tmp.reverse() #Compensates for the FIFO of widget loading by kivy
         return tmp
 
     def _flip_back(self, mat, rep):
@@ -88,8 +102,9 @@ class RootWidget(FloatLayout):
         '''
         for row in range(12):
             for col in range(12):
-                r_tmp = rep.index(mat.children[mat.translate_coords(row, col)].text)
-                mat.children[mat.translate_coords(row, col)].text = str(r_tmp)
+                coords = mat.translate_coords(row, col) 
+                tmp = rep.index(mat.children[coords].text)
+                mat.children[coords].text = str(tmp)
 
     def _expand_matrix(self, mat):
         '''
@@ -99,10 +114,11 @@ class RootWidget(FloatLayout):
         original_mat = ['' for i in range(144)]
         for t_row in range(12):
             for t_col in range(12):
-                original_mat[mat.translate_coords(t_row, t_col)] = int(mat.children[mat.translate_coords(t_row, t_col)].text)
+                t_coords = mat.translate_coords(t_row, t_col)
+                original_mat[t_coords] = int(mat.children[t_coords].text)
 
         for row in range(12):
-            #Variables to keep track of the number of regressions in each row and column
+            #Variables to keep track of regressions in each row and column
             horizontal_twelves = 0
             vertical_twelves = 0
 
@@ -113,20 +129,26 @@ class RootWidget(FloatLayout):
                 #Applies to every value outside the diagonal
                 elif col > row:
                     #Adds 12 to every value that regresses in the original row
-                    current_val_h = original_mat[mat.translate_coords(row, col)]
-                    previous_val_h = original_mat[mat.translate_coords(row, col-1)]
+                    coords = mat.translate_coords(row, col)
+                    coords_m1 = mat.translate_coords(row, col-1)
+                    current_val_h = original_mat[coords]
+                    previous_val_h = original_mat[coords_m1]
+
                     if current_val_h < previous_val_h:
                         horizontal_twelves += 1
                     new_val_h = current_val_h + (12 * horizontal_twelves)
-                    mat.children[mat.translate_coords(row, col)].text = str(new_val_h)
+                    mat.children[coords].text = str(new_val_h)
 
-                    #Adds 12 to every value that regresses in the original column
-                    current_val_v = original_mat[mat.translate_coords(col, row)]
-                    previous_val_v = original_mat[mat.translate_coords(col-1, row)]
+                    #Adds 12 to every value that regresses in the original col
+                    coords = mat.translate_coords(col, row)
+                    coords_m1 = mat.translate_coords(col-1, row)
+                    current_val_v = original_mat[coords]
+                    previous_val_v = original_mat[coords_m1]
+
                     if current_val_v < previous_val_v:
                         vertical_twelves += 1
                     new_val_v = current_val_v + (12 * vertical_twelves)
-                    mat.children[mat.translate_coords(col, row)].text = str(new_val_v)
+                    mat.children[coords].text = str(new_val_v)
 
     def _contract_matrix(self, mat):
         '''
@@ -134,8 +156,9 @@ class RootWidget(FloatLayout):
         '''
         for row in range(12):
             for col in range(12):
-                i_tmp = int(mat.children[mat.translate_coords(row, col)].text) % 12
-                mat.children[mat.translate_coords(row, col)].text = str(i_tmp)
+                coords = mat.translate_coords(row, col)
+                i_tmp = int(mat.children[coords].text) % 12
+                mat.children[coords].text = str(i_tmp)
 
     def build_matrix(self, p_row, mat):
         '''
@@ -153,9 +176,11 @@ class RootWidget(FloatLayout):
             #Use Twelve Tone algorithm to construst the full matrix.
             for row in range(1, len(intervals)+1):
                 for col in range(len(intervals)+1):
-                    val = int(mat.children[mat.translate_coords(row-1, col)].text)
-                    #(row, col) = ((row - 1, col) - ((0, col) - (0, col - 1)) % 12) % 12
-                    mat.children[mat.translate_coords(row, col)].text = str((val - intervals[row-1]) % 12)
+                    coords = mat.translate_coords(row, col)
+                    coords_m1 = mat.translate_coords(row-1, col)
+                    val = int(mat.children[coords_m1].text)
+                    mat.children[coords].text = str((val - intervals[row-1]) % 12)
+        #(row, col) = ((row - 1, col) - ((0, col) - (0, col - 1)) % 12) % 12
 
     def clear_matrix(self, row, mat):
         '''
@@ -203,3 +228,4 @@ class RootWidget(FloatLayout):
                     self.flip_matrix(mat, rep)
         except:
             self.error_pop_set.open()
+            
