@@ -6,13 +6,13 @@ This is the root widget that contains any function that interacts
 between two or more children widgets.
 '''
 import kivy
+import win32api
 kivy.require('1.10.1')
 
 from datetime import datetime
 from .toolbar_widget import ToolBarWidget
 from .matrixtools_widget import MatrixTools
 from .matrix_widget import MatrixWidget
-from .MiscFunctions import print_png
 
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.textinput import TextInput
@@ -90,17 +90,18 @@ class RootWidget(FloatLayout):
         This functions checks which button in the drop down menu has been
         selected and redirects the information to the correct function call.
         '''
+        #Format date as file name
+        date = str(datetime.now().isoformat('_')).split('.', 1)[0]
+        date = date.replace('-', '').replace(':', '')+".png"
+
         if item.lower() == 'save':
-            date = str(datetime.now().isoformat('_')).split('.', 1)[0]
-            date = date.replace('-', '').replace(':', '')+".png"
-            print("Dropdown funcs: SAVE "+ date)
+            #Save PNG file with datetime file name
             mat.export_to_png(date)
         elif item.lower() == 'save & print':
-            date = str(datetime.now().isoformat('_')).split('.', 1)[0]
-            date = date.replace('-', '').replace(':', '')+".png"
-            print("Dropdown funcs: SAVE AND PRINT "+ date)
             mat.export_to_png(date)
-            print_png(date)
+
+            #Print the PNG file with basic windows command
+            win32api.ShellExecute(0, "print", date, None, ".", 0)
         elif item.lower() == 'print options':
             print("Dropdown funcs: PRINT OPTIONS")
         elif item.lower() == 'properties':
