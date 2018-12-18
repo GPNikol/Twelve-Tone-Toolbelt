@@ -8,9 +8,11 @@ between two or more children widgets.
 import kivy
 kivy.require('1.10.1')
 
+from datetime import datetime
 from .toolbar_widget import ToolBarWidget
 from .matrixtools_widget import MatrixTools
 from .matrix_widget import MatrixWidget
+from .MiscFunctions import print_png
 
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.textinput import TextInput
@@ -47,7 +49,10 @@ class RootWidget(FloatLayout):
 
         #Binding functions to settings drop down menu
         file_dropdown = DropDown()
-        btn_names = ['Save', 'Print', 'Print Options', 'Properties']
+        btn_names = ['Save', 
+                     'Save & Print', 
+                     'Print Options', 
+                     'Properties']
         for indx in range(4):
             btn = Button(text=f'{btn_names[indx]}', 
                         size_hint=(None, None), 
@@ -56,7 +61,7 @@ class RootWidget(FloatLayout):
             btn.bind(on_press=lambda btn: file_dropdown.select(btn.text))
             file_dropdown.add_widget(btn)
         tool_bar[0].bind(on_release=file_dropdown.open)
-        file_dropdown.bind(on_select=lambda instance, x: setattr(tool_bar[0], 'text', x))
+        file_dropdown.bind(on_select=lambda instance, x: self._dropdown_funcs(x, my_mat))
 
         #Binds functions directly effecting the matrix to their buttons
         my_tools[4].bind(on_press=lambda *args: 
@@ -79,6 +84,27 @@ class RootWidget(FloatLayout):
             txt_in = prime_row.children[11 - col]
             lbl = my_mat.children[my_mat.translate_coords(0,col)]
             txt_in.bind(text=lbl.setter('text'))
+
+    def _dropdown_funcs(self, item, mat):
+        '''
+        This functions checks which button in the drop down menu has been
+        selected and redirects the information to the correct function call.
+        '''
+        if item.lower() == 'save':
+            date = str(datetime.now().isoformat('_')).split('.', 1)[0]
+            date = date.replace('-', '').replace(':', '')+".png"
+            print("Dropdown funcs: SAVE "+ date)
+            mat.export_to_png(date)
+        elif item.lower() == 'save & print':
+            date = str(datetime.now().isoformat('_')).split('.', 1)[0]
+            date = date.replace('-', '').replace(':', '')+".png"
+            print("Dropdown funcs: SAVE AND PRINT "+ date)
+            mat.export_to_png(date)
+            print_png(date)
+        elif item.lower() == 'print options':
+            print("Dropdown funcs: PRINT OPTIONS")
+        elif item.lower() == 'properties':
+            print("Dropdown funcs: PROPERTIES")
 
     def _convert_prime_row(self, row):
         '''
