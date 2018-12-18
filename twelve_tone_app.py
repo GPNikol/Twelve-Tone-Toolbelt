@@ -11,7 +11,7 @@ import kivy
 import kivy.uix.settings
 kivy.require('1.10.1')
 
-from TTWidgets.root_widget import RootWidget
+from TTWidgets import RootWidget
 
 from kivy.app import App
 from kivy.logger import Logger
