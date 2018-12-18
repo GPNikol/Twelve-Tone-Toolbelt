@@ -33,7 +33,7 @@ class RootWidget(FloatLayout):
         super(RootWidget, self).__init__(**kwargs)
         self.error_pop_set = Popup(title="PRIME ROW ERROR",
                             content=Label(text='''RULES FOR A PRIME ROW:
-                            \n -Must contain all numbers zero through eleven
+                                        \n -Must contain all numbers zero through eleven
                                         \n -Must contain each only once''',
                                         font_size=self.height/6),
                             size_hint=(None,None),
@@ -52,29 +52,27 @@ class RootWidget(FloatLayout):
             btn = Button(text=f'{btn_names[indx]}', 
                         size_hint=(None, None), 
                         width=self.width, height=40)
+
             btn.bind(on_press=lambda btn: file_dropdown.select(btn.text))
             file_dropdown.add_widget(btn)
         tool_bar[0].bind(on_release=file_dropdown.open)
-        file_dropdown.bind(
-            on_select=lambda instance, 
-            x: setattr(tool_bar[0], 'text', x
-            ))
+        file_dropdown.bind(on_select=lambda instance, x: setattr(tool_bar[0], 'text', x))
 
         #Binds functions directly effecting the matrix to their buttons
-        my_tools[4].bind(on_press=lambda *args: self.build_matrix(prime_row,
-        my_mat))
-        my_tools[3].bind(on_press=lambda *args: self.clear_matrix(prime_row,
-        my_mat))
-        my_tools_h2[1].bind(on_press=lambda *args: self.flip_matrix(my_mat,
-        MatrixWidget.FLAT_ALPHA_REP))
-        my_tools_h2[0].bind(on_press=lambda *args: self.flip_matrix(my_mat,
-        MatrixWidget.SHARP_ALPHA_REP))
-        my_tools_h1[1].bind(on_press=lambda *args: self.flip_matrix(my_mat,
-        MatrixWidget.EXPAND))
-        my_tools_h1[0].bind(on_press=lambda *args: self.flip_matrix(my_mat,
-        MatrixWidget.ALPHANUM_REP))
-        my_tools[0].bind(on_press=lambda *args: self.flip_matrix(my_mat,
-        MatrixWidget.DEFAULT))
+        my_tools[4].bind(on_press=lambda *args: 
+                                self.build_matrix(prime_row, my_mat))
+        my_tools[3].bind(on_press=lambda *args: 
+                                self.clear_matrix(prime_row, my_mat))
+        my_tools_h2[1].bind(on_press=lambda *args: 
+                                self.flip_matrix(my_mat, MatrixWidget.FLAT_ALPHA_REP))
+        my_tools_h2[0].bind(on_press=lambda *args: 
+                                self.flip_matrix(my_mat, MatrixWidget.SHARP_ALPHA_REP))
+        my_tools_h1[1].bind(on_press=lambda *args: 
+                                self.flip_matrix(my_mat, MatrixWidget.EXPAND))
+        my_tools_h1[0].bind(on_press=lambda *args: 
+                                self.flip_matrix(my_mat, MatrixWidget.ALPHANUM_REP))
+        my_tools[0].bind(on_press=lambda *args: 
+                                self.flip_matrix(my_mat, MatrixWidget.DEFAULT))
 
         #Binds text inputs to labels
         for col in range(12):
@@ -102,7 +100,8 @@ class RootWidget(FloatLayout):
         '''
         for row in range(12):
             for col in range(12):
-                coords = mat.translate_coords(row, col) 
+                coords = mat.translate_coords(row, col)
+
                 tmp = rep.index(mat.children[coords].text)
                 mat.children[coords].text = str(tmp)
 
@@ -112,9 +111,11 @@ class RootWidget(FloatLayout):
         '''
         #Creates a copy of the original matrix
         original_mat = ['' for i in range(144)]
+
         for t_row in range(12):
             for t_col in range(12):
                 t_coords = mat.translate_coords(t_row, t_col)
+
                 original_mat[t_coords] = int(mat.children[t_coords].text)
 
         for row in range(12):
@@ -157,6 +158,7 @@ class RootWidget(FloatLayout):
         for row in range(12):
             for col in range(12):
                 coords = mat.translate_coords(row, col)
+
                 i_tmp = int(mat.children[coords].text) % 12
                 mat.children[coords].text = str(i_tmp)
 
@@ -178,9 +180,10 @@ class RootWidget(FloatLayout):
                 for col in range(len(intervals)+1):
                     coords = mat.translate_coords(row, col)
                     coords_m1 = mat.translate_coords(row-1, col)
+
                     val = int(mat.children[coords_m1].text)
                     mat.children[coords].text = str((val - intervals[row-1]) % 12)
-        #(row, col) = ((row - 1, col) - ((0, col) - (0, col - 1)) % 12) % 12
+                    #(row, col) = ((row - 1, col) - ((0, col) - (0, col - 1)) % 12) % 12
 
     def clear_matrix(self, row, mat):
         '''
@@ -202,28 +205,34 @@ class RootWidget(FloatLayout):
             tmp_v = [mat.children[mat.translate_coords(col, 0)].text for col in range(12)]
 
             #If the matrix is in numeral representation proceed to flip to new rep
-            if set(tmp_h) == set(map(str,range(12))) and set(tmp_v) == set(map(str,range(12))) and rep != MatrixWidget.DEFAULT:
+            if set(tmp_h) == set(tmp_v) == set(map(str,range(12))) and rep != MatrixWidget.DEFAULT:
                 if rep == MatrixWidget.EXPAND:
                     self._expand_matrix(mat)
                 else:
                     #Iterate through the matrix, altering the representation
                     for row in range(12):
                         for col in range(12):
-                            r_tmp = rep[int(mat.children[mat.translate_coords(row, col)].text)]
-                            mat.children[mat.translate_coords(row, col)].text = str(r_tmp)
+                            coords = mat.translate_coords(row, col)
+                            r_tmp = rep[int(mat.children[coords].text)]
+                            mat.children[coords].text = str(r_tmp)
             #Make sure there's a matrix to operate on
             elif len(tmp_h) != 12:
                 self.error_pop_set.open()
             #If the matrix isn't in numeral representation flip back to it then proceed
             else:
+                #Flip from alphanumeric rep to numerical rep
                 if set(tmp_h) == set(MatrixWidget.ALPHANUM_REP):
                     self._flip_back(mat, MatrixWidget.ALPHANUM_REP)
+                #Flip from flat alphabetic rep to numerical rep
                 elif set(tmp_h) == set(MatrixWidget.FLAT_ALPHA_REP):
                     self._flip_back(mat, MatrixWidget.FLAT_ALPHA_REP)
+                #Flip from sharp alphabetic rep to numerical rep
                 elif set(tmp_h) == set(MatrixWidget.SHARP_ALPHA_REP):
                     self._flip_back(mat, MatrixWidget.SHARP_ALPHA_REP)
+                #Flip from expanded rep to numerical rep
                 else:
                     self._contract_matrix(mat)
+                #Seems redundant but helps (???)
                 if rep != MatrixWidget.DEFAULT:
                     self.flip_matrix(mat, rep)
         except:
