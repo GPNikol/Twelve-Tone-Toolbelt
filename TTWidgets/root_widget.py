@@ -50,10 +50,9 @@ class RootWidget(FloatLayout):
         #Binding functions to settings drop down menu
         file_dropdown = DropDown()
         btn_names = ['Save', 
-                     'Save & Print', 
-                     'Print Options', 
+                     'Save & Print',
                      'Properties']
-        for indx in range(4):
+        for indx in range(3):
             btn = Button(text=f'{btn_names[indx]}', 
                         size_hint=(None, None), 
                         width=self.width, height=40)
@@ -102,8 +101,6 @@ class RootWidget(FloatLayout):
 
             #Print the PNG file with basic windows command
             win32api.ShellExecute(0, "print", date, None, ".", 0)
-        elif item.lower() == 'print options':
-            print("Dropdown funcs: PRINT OPTIONS")
         elif item.lower() == 'properties':
             print("Dropdown funcs: PROPERTIES")
 
