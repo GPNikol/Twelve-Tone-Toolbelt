@@ -45,7 +45,7 @@ The expanded representation shows the musical distance between each note in the 
 
 4. Enable saving of the state of the workspace.
 
-5. Enable printing of the current state of the twelve-tone matrix.
+~~5. Enable printing of the current state of the twelve-tone matrix.~~
 
 6. Enable display options to alter the appearence of the workspace.
 
